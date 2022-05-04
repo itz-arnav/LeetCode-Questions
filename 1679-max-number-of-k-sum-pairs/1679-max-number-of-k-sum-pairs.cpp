@@ -1,32 +1,29 @@
 class Solution {
 public:
     int maxOperations(vector<int>& nums, int k) {
-        map<int,int> mp;
+        unordered_map<int,int> mp;
         for(auto &x : nums){
             mp[x]++;
         }
+        
         int ct = 0;
         for(auto &x : mp){
-            while(mp[x.first] > 0){
-                int y = k - (x.first);
-                if(y == (x.first)){
-                    if(mp[y] > 1){
-                        mp[y]-=2;
-                        
-                        ct++;
-                    }
-                    else
-                        break;
+                int key = x.first;
+                int val = x.second;
+                int y = k - (key);
+                    
+                if(y == (key) and mp[y] >= 2){
+                    ct+=val/2;
+                    mp[y] = 0;
                 }
-                else if(mp[y] > 0){
-                    mp[y]--;
-                    mp[x.first]--;
-                    ct++;
+                else if(mp.find(y) != mp.end() and mp[y] > 0 and y != (key)){
+                    
+                    int dec=min(mp[y], val);
+                    ct+=dec;
+                    mp[y] -= dec;
+                    mp[key]-=dec;
                 }
-                else{
-                    break;
-                }
-            }
+                
         }
         return ct;
     }
