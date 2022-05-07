@@ -39,9 +39,7 @@ public:
             st.insert(arr[j]);
         }
         
-         // for(int i = 0; i<n; i++){
-         //     cout<<left[i]<<" "<<right[i]<<endl;
-         // }
+        
         for(int i = 1; i<n-1; i++){
             if(left[i] < arr[i] and right[i] < arr[i] and right[i] > left[i])
                 return true;
