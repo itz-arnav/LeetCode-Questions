@@ -11,19 +11,21 @@
  */
 class Solution {
 public:
-    vector<int> ans;
+    long curr = INT_MIN-500L;
+    bool flag = true;
     void solve(TreeNode* root){
         if(root == 0)
             return;
         solve(root->left);
-        ans.push_back(root->val);
+        long c = root->val;
+        if(c <= curr)
+            flag = false;
+        curr = root->val;
         solve(root->right);
     }
     bool isValidBST(TreeNode* root) {
         solve(root);
-        for(int i = 1; i<ans.size(); i++)
-            if(ans[i] <= ans[i-1])
-                return false;
-        return true;
+        
+        return flag;
     }
 };
