@@ -11,31 +11,14 @@
 class Solution {
 public:
     ListNode* mergeNodes(ListNode* head) {
-        ListNode* ans = 0;
-        ListNode* ptr = ans;
-        ListNode* temp = head;
-        while(head != 0){
-            while(head and head->val == 0)
-            head = head->next;
-            if(head == 0)
-                break;
-            temp = head;
-            int x = temp->val;
-            temp = temp->next;
-            while(temp and temp->val != 0){
-                x += temp->val;
-                temp  = temp->next;
-            }
-            if(ans == 0){
-                ans = new ListNode(x);
-                ptr = ans;
-            }
-            else{
-                ptr->next = new ListNode(x);
-                ptr = ptr->next;
-            }
-            head = temp;
+        for (auto *p_z = head, *p = head->next; p != nullptr; p = p->next) {
+        if (p->val != 0)
+            p_z->val += p->val;
+        else {
+            p_z->next = p->next != nullptr ? p : nullptr;
+            p_z = p;
         }
-        return ans;
+    }
+    return head;
     }
 };
