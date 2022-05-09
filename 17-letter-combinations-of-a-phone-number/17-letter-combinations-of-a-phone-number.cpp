@@ -1,23 +1,23 @@
 class Solution {
     public:
-    const vector<string> pad = {
+    const vector<string> arr = {
         "", "", "abc", "def", "ghi", "jkl",
         "mno", "pqrs", "tuv", "wxyz"
     };
     
-    vector<string> letterCombinations(string digits) {
-        if (digits.empty()) return {};
+    vector<string> letterCombinations(string s) {
+        if (s.empty()) return {};
 		vector<string> result;
         result.push_back("");
         
-        for(auto digit: digits) {
-            vector<string> tmp;
-            for(auto candidate: pad[digit - '0']) {
+        for(auto c: s) {
+            vector<string> temp;
+            for(auto x: arr[c - '0']) {
                 for(auto s: result) {
-                    tmp.push_back(s + candidate);
+                    temp.push_back(s + x);
                 }
             }
-            result.swap(tmp);
+            result.swap(temp);
         }
         return result;
     }
