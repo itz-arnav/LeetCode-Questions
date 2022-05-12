@@ -1,20 +1,25 @@
 class Solution {
 public:
-    void solve(vector<int> curr, int i, int j, vector<vector<int> > &arr) {
-        if (i == j-1) {
-            arr.push_back(curr);
-            return;
-        }
-        for (int k = i; k < j; k++) {
-            if (i != k && curr[i] == curr[k]) continue;
-            swap(curr[i], curr[k]);
-            solve(curr, i+1, j, arr);
-        }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans; 
+        ans.push_back(nums);
+        while(next_permu(nums))
+            ans.push_back(nums);
+        return ans;
     }
-    vector<vector<int> > permuteUnique(vector<int> &num) {
-        sort(num.begin(), num.end());
-        vector<vector<int> >arr;
-        solve(num, 0, num.size(), arr);
-        return arr;
+    
+    bool next_permu(vector<int> &nums){
+        int i;
+        int n = nums.size();
+        for(i = n - 2; i >= 0 and nums[i] >= nums[i+1]; i--);
+        if(i < 0) return false;
+        int j;
+        for(j = n - 1; j >= 0 and nums[j] <= nums[i]; j--);
+        
+        swap(nums[j],nums[i]);        
+        reverse(nums.begin() + i + 1, nums.end());
+        return true;
     }
 };
