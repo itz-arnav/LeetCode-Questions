@@ -3,11 +3,20 @@ public:
     bool hasAllCodes(string s, int k) {
         if (k > s.size()) return false;
         
-        unordered_set<string> my_set;
+        unordered_set<int> st;
         
-        for (int i = 0; i <= s.size()-k; i++)
-            my_set.insert(s.substr(i, k));
+        for (int i = 0; i <= s.size()-k; i++){
+            
+            int temp = 0;
+            for(int j = 0; j<k; j++){
+                int curr = s[i+j] - '0';
+                temp |= (curr<<j);
+            }
+            
+            st.insert(temp);
+            
+        }
         
-        return my_set.size() == pow(2, k);
+        return st.size() == pow(2, k);
     }
 };
