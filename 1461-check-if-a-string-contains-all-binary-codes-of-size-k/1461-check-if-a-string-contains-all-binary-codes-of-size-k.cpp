@@ -1,11 +1,12 @@
 class Solution {
 public:
     bool hasAllCodes(string s, int k) {
-        if (k > s.size()) return false;
+        int n = s.size();
+        if (k > n) return false;
         
         unordered_set<int> st;
         
-        for (int i = 0; i <= s.size()-k; i++){
+        for (int i = 0; i + k <= n; i++){
             
             int temp = 0;
             for(int j = 0; j<k; j++){
