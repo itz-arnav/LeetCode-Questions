@@ -1,24 +1,15 @@
 class Solution {
 public:
+    unordered_map<int,int> mp;
+
     vector<int> arrayChange(vector<int>& nums, vector<vector<int>>& operations) {
-        unordered_map<int,int> hm;     //****store index of element in map
-        for(int i =0;i<nums.size();i++){
-            
-            hm[nums[i]] = i;   //** use map to find the index 
-        }
-        
-        for(int i =0;i<operations.size();i++){
-            
-            
-            int a  = operations[i][0];
-            int b = operations[i][1];
-            
-            nums[hm[a]] = b;
-            
-            hm[b] = hm[a];  //**also store the changed element in hashmap
-            
-            
-        }
+        for(int i=0 ; i < nums.size() ; i++)
+            mp[nums[i]] = i; //Save position of each value
+        for(vector<int> a : operations) mp[a[1]] = mp[a[0]] , mp[a[0]] = -1; 
+		// When a-> b we give position of a to b, mark that a is not in the array anymore
+        for(auto i : mp)
+            if(i.second >= 0) // If value is in array
+                nums[i.second] = i.first;
         return nums;
     }
 };
