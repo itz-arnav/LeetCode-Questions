@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-         map<int,int> m;
+         unordered_map<int,int> m;
         set<vector<int>> st;
         int n=nums.size();
         vector<vector<int>> ans;
