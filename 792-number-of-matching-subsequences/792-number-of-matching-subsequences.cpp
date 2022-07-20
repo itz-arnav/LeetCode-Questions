@@ -1,23 +1,18 @@
 class Solution {
 public:
     int numMatchingSubseq(string S, vector<string>& words) {
-        vector<int> cmap[26];
-        for (int i = 0; i < S.length(); i++) {
-            cmap[S[i]-'a'].push_back(i);
+        vector<const char*> waiting[128];
+    for (auto &w : words)
+        waiting[w[0]].push_back(w.c_str());
+    for (char c : S) {
+        auto advance = waiting[c];
+        waiting[c].clear();
+        
+        for (auto it : advance){
+            ++it;
+            waiting[*it].push_back(it);
         }
-        int res = 0;
-        for (auto& word : words) {
-            int i = 0, n = word.length(), j = -1;
-            while (i < n) {
-                int c = word[i]-'a';
-                if (cmap[c].empty()) break;
-                auto it = upper_bound(begin(cmap[c]), end(cmap[c]), j);
-                if (it == cmap[c].end()) break;
-                j = *it;
-                i++;
-            }
-            res += (i == n);
-        }
-        return res;
+    }
+    return waiting[0].size();
     }
 };
