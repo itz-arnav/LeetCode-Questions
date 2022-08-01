@@ -2,20 +2,30 @@
     class Solution {
 public:
     vector<int> pathInZigZagTree(int label) {
-        vector<int> result;
-        result.push_back(label); //taking bottom up approach, so the label itself must be included 
-        int height=log2(label); //height of label from root
+
+        //label is at which level
+        int level = log(label) / log(2) + 1;
+        //cout << level << endl;
+
+        vector<int> res = {};
         
-        while(height!=0){
-            int left=pow(2,height-1); // rank of left limit of the previous level 
-            int right=pow(2,height)-1;// rank of right limit of the previous level
-            label=left+(right-label/2);// The previous level is sorted in different order than current one.
-                                       //So the new label is adjusted accordingly
-            result.push_back(label);  //newly found label is appened to result
-            height--;
+        int val = label;
+
+        while(level)
+        {
+
+            res.emplace_back(val);
+            // max_number + min_number - label
+            val = pow( 2, (level-1) ) + pow(2, level) - 1 - val;
+            
+            val = val / 2;
+            
+            level--;
+                
         }
-        
-        reverse(result.begin(),result.end()); //required top to down, so the array is reversed. 
-        return result;
+
+        reverse(res.begin(), res.end());
+
+        return res;
     }
 };
