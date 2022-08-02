@@ -1,22 +1,24 @@
-class Solution {
+class Solution { // 20 ms, faster than 98.92%
 public:
+    int m, n;
     int kthSmallest(vector<vector<int>>& matrix, int k) {
-        
-        priority_queue<int> pq;
-        
-        for(int i = 0; i<matrix.size(); i++){
-            for(int j = 0; j<matrix[i].size(); j++){
-                if(pq.size() < k)
-                    pq.push(matrix[i][j]);
-                else{
-                    if(pq.top() > matrix[i][j]){
-                        pq.pop();
-                        pq.push(matrix[i][j]);
-                    }
-                }
-            }
-            
+        m = matrix.size(), n = matrix[0].size(); // For general, the matrix need not be a square
+        int left = matrix[0][0], right = matrix[m-1][n-1], ans = -1;
+        while (left <= right) {
+            int mid = (left + right) >> 1;
+            if (countLessOrEqual(matrix, mid) >= k) {
+                ans = mid;
+                right = mid - 1; // try to looking for a smaller value in the left side
+            } else left = mid + 1; // try to looking for a bigger value in the right side
         }
-        return pq.top();
+        return ans;
+    }
+    int countLessOrEqual(vector<vector<int>>& matrix, int x) {
+        int cnt = 0, c = n - 1; // start with the rightmost column
+        for (int r = 0; r < m; ++r) {
+            while (c >= 0 && matrix[r][c] > x) --c;  // decrease column until matrix[r][c] <= x
+            cnt += (c + 1);
+        }
+        return cnt;
     }
 };
