@@ -21,7 +21,7 @@ int solve(int i, int a, int j, int b, string &t, string &s, vector<vector<int>> 
 }
 
 int subsequenceCounting(string &t, string &s, int a, int b) {
-    vector<vector<int>> dp(a+5, vector<int>(b+5,0));
+    vector<vector<double>> dp(a+5, vector<double>(b+5,0));
     for(int j = 1; j<=b; ++j){
         dp[0][j] = 0;
     }
@@ -31,9 +31,9 @@ int subsequenceCounting(string &t, string &s, int a, int b) {
     for(int i = 1; i<=a; ++i){
         for(int j = 1; j<=b; ++j){
             if(t[i-1] == s[j-1]){
-                dp[i][j] = (dp[i][j] + dp[i-1][j-1])%mod;
+                dp[i][j] += dp[i-1][j-1];
             }
-            dp[i][j] = (dp[i][j] + dp[i-1][j])%mod;
+            dp[i][j] +=dp[i-1][j];
         }
     }
     return dp[a][b];
