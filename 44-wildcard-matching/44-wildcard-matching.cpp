@@ -24,7 +24,7 @@ public:
         return dp[i][j] = solve(i-1, j-1, a,b,dp);
     }
     if(a[i-1] == '*'){
-        return dp[i][j] = solve(i-1, j-1, a,b,dp) or solve(i,j-1, a,b,dp) or solve(i-1,j,a,b,dp);
+        return dp[i][j] = solve(i,j-1, a,b,dp) or solve(i-1,j,a,b,dp);
     }
     else
         return dp[i][j] = false;
