@@ -14,15 +14,10 @@ public:
     int lengthOfLIS(vector<int>& arr) {
         int n = arr.size();
         vector<vector<int>> t(n+10, vector<int>(n+10,0));
-        for(int i =0; i< n+1; i++)
+        for(int j =0; j< n+1; j++)
         {
-            for(int j =0; j<n+1; j++)
-            {
-                if(i == 0)
-                {
-                    t[i][j] = 0;
-                }
-            }
+            t[0][j] = 0;
+            
         }
         
         for(int i =1; i< n+1; i++)
