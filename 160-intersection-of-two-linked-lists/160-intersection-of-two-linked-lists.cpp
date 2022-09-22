@@ -9,35 +9,25 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        int len1 = 0, len2 = 0;
-        ListNode* a = headA;
-        ListNode* b = headB;
-        while(a){
-            len1++;
-            a = a->next;
-        }
-        while(b){
-            len2++;
-            b = b->next;
-        }
-        if(len1 > len2){
-            while(len1 > len2){
-                headA = headA->next;
-                len1--;
+ 
+        unordered_map<ListNode*,bool>mp;
+        while(headA!=NULL || headB!=NULL){
+            if(headA && mp.find(headA) != mp.end())
+                return headA;
+            if(headB && mp.find(headB) != mp.end())
+                return headB;
+            if(headB){
+            mp[headB]=1;
+            headB= headB->next;
             }
-        }
-        else{
-            while(len2 > len1){
-                headB = headB->next;
-                len2--;
+            if(headA && mp.find(headA) != mp.end())
+                return headA;
+            if(headA){mp[headA]=1;
+            headA = headA->next;
             }
-        }
-        while(headA && headB){
-                if(headA == headB)
-                    return headA;
-                headA = headA->next;
-                headB = headB->next;
-        }
-        return 0;
+            if(headB && mp.find(headB) != mp.end())
+                return headB;
+    }
+        return NULL;
     }
 };
