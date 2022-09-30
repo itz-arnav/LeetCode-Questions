@@ -1,34 +1,59 @@
 class MyCircularQueue {
 public:
+    int front = -2, rear = -1;
+    int s = 0, cs = 0;
+    vector<int> q;
     MyCircularQueue(int k) {
-        data.resize(k);
-        maxSize = k;
+        q.resize(k);
+        s = k;
     }
-    bool enQueue(int val) {
-        if (isFull()) return false;
-        tail = (tail + 1) % maxSize;
-        data[tail] = val;
+    
+    bool enQueue(int value) {
+        if(cs == s){
+            return false;
+        }
+        if(cs == 0){
+            front = rear = 0;
+            q[front] = value;
+            cs++;
+        }
+        else{
+            cs++;
+            rear++;
+            rear%=s;
+            q[rear] = value;
+        }
+        
         return true;
     }
+    
     bool deQueue() {
-        if (isEmpty()) return false;
-        if (head == tail) head = 0, tail = -1;
-        else head = (head + 1) % maxSize;
+        if(cs == 0)
+            return false;
+        cs--;
+        front++;
+        front%=s;
         return true;
     }
+    
     int Front() {
-        return isEmpty() ? -1 : data[head];
+        if(cs == 0)
+            return -1;
+        return q[front];
     }
+    
     int Rear() {
-        return isEmpty() ? -1 : data[tail];
+        if(cs == 0)
+            return -1;
+        return q[rear];
     }
+    
     bool isEmpty() {
-        return tail == -1;
+        return cs==0;
     }
+    
     bool isFull() {
-        return !isEmpty() && (tail + 1) % maxSize == head;
+        return cs==s;
     }
-private:
-    int maxSize, head = 0, tail = -1;
-    vector<int> data;
 };
+
