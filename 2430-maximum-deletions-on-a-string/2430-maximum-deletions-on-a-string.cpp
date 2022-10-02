@@ -24,7 +24,7 @@ public:
         if(memo[i] != -1) return memo[i];
         
         int result = 1;
-        string sub = s.substr(i, n-i);
+        string sub = s.substr(i);
         vector<int> z = z_function(sub);
         int j = 1;
         
