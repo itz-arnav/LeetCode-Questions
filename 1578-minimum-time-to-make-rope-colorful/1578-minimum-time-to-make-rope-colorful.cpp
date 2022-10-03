@@ -12,7 +12,6 @@ public:
                 }
             }
             else{
-                cout<<i<<endl;
                 prev = i;
             }
         }
