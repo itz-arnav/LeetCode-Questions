@@ -1,12 +1,15 @@
 class Solution {
 public:
     int maxProfit(vector<int>& arr) {
+        int maxx = 0, curr = arr[0];
         int n = arr.size();
-        int curr = 0, past = arr[0];
-        for(int i = 0; i<n; ++i){
-            curr = max(curr, arr[i]-past);
-            past = min(past, arr[i]);
+        for(int i = 1; i<n; ++i){
+            if(arr[i] > curr)
+                maxx = max(maxx, arr[i]-curr);
+            else{
+                curr = arr[i];
+            }
         }
-        return curr;
+        return maxx;
     }
 };
