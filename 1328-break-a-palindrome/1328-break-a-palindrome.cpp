@@ -19,6 +19,7 @@ public:
                 s[j] = 'b';
                 break;
             }
+            j--;
         }
         return s;
     }
