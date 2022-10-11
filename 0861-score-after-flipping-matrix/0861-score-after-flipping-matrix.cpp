@@ -1,35 +1,13 @@
 class Solution {
 public:
-    int matrixScore(vector<vector<int>>& arr) {
-        int n=  arr.size();
-        int m = arr[0].size();
-        for(int i = 0; i<n; ++i){
-            if(arr[i][0] == 1)
-                continue;
-                for(int j = 0; j<m; ++j){
-                    arr[i][j] = 1-arr[i][j];
-                }
+        int matrixScore(vector<vector<int>> A) {
+        int M = A.size(), N = A[0].size(), res = (1 << (N - 1)) * M;
+        for (int j = 1; j < N; j++) {
+            int cur = 0;
+            for (int i = 0; i < M; i++) cur += A[i][j] == A[i][0];
+            res += max(cur, M - cur) * (1 << (N - j - 1));
         }
-        
-        for(int j = 1; j<m; ++j){
-            int ct = 0;
-            for(int i = 0; i<n; ++i){
-                ct += arr[i][j];
-            }
-            if(2*ct < n){
-                for(int i = 0; i<n; ++i){
-                    arr[i][j] = 1-arr[i][j];
-                }
-            }
-        }
-        int ans = 0;
-        for(int i = 0; i<n; ++i){
-            int val = 1;
-            for(int j = m-1; j>=0; --j){
-                ans += arr[i][j]*val;
-                val<<=1;
-            }
-        }
-        return ans;
+        return res;
     }
+    
 };
