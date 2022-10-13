@@ -12,7 +12,7 @@ public:
         for(int i = n-1; i>=0; --i){
             if(i < n-1)
             trav -= travel[i];
-            unordered_map<char,int> mp;
+            int mp[100] = {0};
             for(auto c : arr[i])
                 mp[c]++;
             
