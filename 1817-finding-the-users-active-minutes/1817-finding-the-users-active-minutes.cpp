@@ -6,12 +6,9 @@ public:
             mp[x[0]].insert(x[1]);
         }
         vector<int> ans(k);
-        unordered_map<int,int> res;
         for(auto x : mp)
-            res[x.second.size()]++;
-        for(int i = 1; i<=k; ++i){
-            ans[i-1] = res[i];
-        }
+            ans[x.second.size() - 1]++;
+        
         return ans;
     }
 };
