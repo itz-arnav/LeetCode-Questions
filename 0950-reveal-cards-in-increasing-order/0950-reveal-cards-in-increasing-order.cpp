@@ -1,13 +1,15 @@
 class Solution {
 public:
     vector<int> deckRevealedIncreasing(vector<int>& deck) {
-        sort(begin(deck), end(deck));
-  vector<int> res(deck.size(), 0);
-  res[0] = deck[0];
-  for (auto i = 1, p = 0; i < deck.size(); ++i) {
-    for (auto j = 0; j < 2; p %= res.size(), j += (res[p] == 0 ? 1 : 0)) ++p;
-    res[p] = deck[i];
-  }
-  return res;
+        sort(deck.rbegin(), deck.rend());
+        deque<int> d;
+        d.push_back(deck[0]);
+        for (int i = 1; i < deck.size(); i++) {
+            d.push_front(d.back());
+            d.pop_back();
+            d.push_front(deck[i]);
+        }
+        vector<int> res(d.begin(), d.end());
+        return res;
     }
 };
