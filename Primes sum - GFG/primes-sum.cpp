@@ -8,32 +8,25 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-    int prime[10004];
-    void sieve(){
-        fill(prime, prime+10004, 1);
-        prime[0] = prime[1] = 0;
-        for(int i = 2; i<10004; i++){
-            if(prime[i]){
-                for(int j = i*i; j<10004; j+=i){
-                    prime[j] = 0;
-                }
-            }
-        }
-    }
+    
+    bool isPrime(int n){
+      if(n <= 1)
+      return false;
+      for(int i = 2; i*i <= n; ++i){
+          if(n%i ==0)
+          return false;
+      }
+      return true;
+  }
     string isSumOfTwo(int N){
-        sieve();
         if(N < 4)
         return "No";
-        if(prime[N-2])
+        if(isPrime(N-2) or N%2 == 0)
         return "Yes";
 
-        for(int i = 3; 2*i <= N; i+=2){
-            if(prime[i] and prime[N-i]){
-                return "Yes";
-            }
-        }
         return "No";
     }
+
 };
 
 //{ Driver Code Starts.
