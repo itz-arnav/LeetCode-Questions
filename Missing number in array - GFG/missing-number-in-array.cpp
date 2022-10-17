@@ -13,20 +13,11 @@ using namespace std;
 class Solution{
   public:
     int MissingNumber(vector<int>& array, int n) {
-        int ans = 0;
-        if(n % 4 == 0)
-            ans = n;
-        else if(n%4 == 1)
-            ans = 1;
-        else if(n%4 == 2)
-            ans = n+1;
-        else
-            ans = 0;
-            
-        for(auto x : array)
-            ans ^= x;
-            
-        return ans;
+        int sum = n*(n+1)/2;
+        for(auto x : array){
+            sum -= x;
+        }
+        return sum;
     }   
 };
 
