@@ -18,7 +18,12 @@ class Solution {
       return true;
   }
     string isSumOfTwo(int N){
-        for(int i = 1; i <= N/2; ++i){
+        if(N < 4)
+        return "No";
+        if(isPrime(N-2))
+        return "Yes";
+
+        for(int i = 3; 2*i <= N; i+=2){
             if(isPrime(i) and isPrime(N-i)){
                 return "Yes";
             }
