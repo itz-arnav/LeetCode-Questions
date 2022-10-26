@@ -1,14 +1,12 @@
 class Solution {
 public:
-    bool checkSubarraySum(vector<int>& nums, int k) {
-        int n = nums.size(), sum = 0, pre = 0;
-        unordered_set<int> modk;
-        for (int i = 0; i < n; ++i) {
-            sum += nums[i];
-            int mod = sum % k;
-            if (modk.count(mod)) return true;
-            modk.insert(pre);
-            pre = mod;
+    bool checkSubarraySum(vector<int>& A, int k) {
+        unordered_map<int, int> seen = {{0, -1}};
+        int cur = 0;
+        for (int i = 0; i < A.size(); ++i) {
+            cur =  k ? (cur + A[i]) % abs(k) : cur + A[i];
+            seen.insert({cur, i});
+            if (i - seen[cur] > 1) return true;
         }
         return false;
     }
