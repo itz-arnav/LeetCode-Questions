@@ -19,7 +19,7 @@ public:
         }
         vector<string> ans;
         while(pq.size()){
-            cout<<pq.top().first<<" "<<pq.top().second<<endl;
+            // cout<<pq.top().first<<" "<<pq.top().second<<endl;
             ans.push_back(pq.top().second);
             pq.pop();
         }
