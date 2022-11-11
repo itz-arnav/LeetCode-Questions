@@ -2,13 +2,12 @@ class Solution {
 public:
     string convertToTitle(int columnNumber) {
     string ans = "";
-    char tmp;
     while(columnNumber){
         columnNumber--;
-        tmp = 'A' + columnNumber % 26;
-        ans = tmp + ans;
+        ans.push_back('A' + columnNumber % 26);
         columnNumber /= 26;
     }
+    reverse(ans.begin(), ans.end());
     return ans; 
 }
 };
