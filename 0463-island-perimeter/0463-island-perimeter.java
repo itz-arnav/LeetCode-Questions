@@ -1,14 +1,14 @@
 class Solution {
-    public static int dfs (int[][] arr, int row, int col) {
-        if (row >= arr.length || col >= arr[0].length || row < 0 || col < 0 || arr[row][col] == 0) {
+    public static int dfs (int[][] arr, int r, int c) {
+        if (r >= arr.length || c >= arr[0].length || r < 0 || c < 0 || arr[r][c] == 0) {
             return 1;
         }
-        if (arr[row][col] == -1) {
+        if (arr[r][c] == -1) {
             return 0;
         }
-        arr[row][col] = -1;
+        arr[r][c] = -1;
 
-        return dfs(arr, row + 1, col) + dfs(arr, row, col + 1) + dfs(arr, row - 1, col) + dfs(arr, row, col - 1);
+        return dfs(arr, r + 1, c) + dfs(arr, r, c + 1) + dfs(arr, r - 1, c) + dfs(arr, r, c - 1);
     }
     public int islandPerimeter(int[][] arr) {
         for (int i = 0; i < arr.length; i++) {
